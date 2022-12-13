@@ -10,16 +10,21 @@ app.use(express.urlencoded());
 
 app.use(express.json());
 
+var savedInputs     = '';
+
 router.get('/',function(req,res) {
     res.sendFile(path.join(__dirname+'/index.html'));
 });
 
 router.get('/:customurl',function(req,res) {
-    res.json({'url': req.params.customurl});
+    res.json({'url': savedInputs});
 });
 
 router.post('/', function(req, res) {
-    io.local.emit('message', generateRandomString());
+    savedInputs     = req.body.myurl;
+
+    var randStr     = generateRandomString();
+    io.local.emit('message', randStr);
 });
 
 app.use('/', router);
