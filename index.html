@@ -1,0 +1,42 @@
+<html>
+<head>
+	<title>Express HTML</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+
+</head>
+<body>
+
+	<h1>Hello, trap!</h1>
+		<div class="input-group mb-3">
+			<input type="text" class="form-control" id="myurl" name="myurl">
+			<button class="btn btn-primary" type="submit" onclick="submit()">Submit</button>
+		</div>
+
+	<script>
+		var socket = io();
+
+		socket.on('message', function(msg) {
+			window.location.href = '/' + msg;
+			console.log(msg);
+		});
+
+		function submit() {
+			$.ajax({
+	        type: "POST",
+	        url: '/',
+	        data: {myurl: $("#myurl").val()},
+	        success: function() {
+	        },
+	        error: function(jqXHR, textstatus, errorThrown) {
+	        }
+	    });
+		}
+
+		
+	</script>
+</body>
+</html>
